@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
 import java.util.UUID;
 
 @ConfigurationProperties(prefix = "brewery")
@@ -28,6 +29,11 @@ public class BreweryClient {
         BeerDto beerDto = beerDtoResponseEntity.getBody();
 
         return beerDto;
+    }
+
+    public URI saveBeer(BeerDto beerDto) {
+        URI uri = restTemplate.postForLocation(apiHost + BEER_PATH_V1, beerDto);
+        return uri;
     }
 
     public void setApiHost(String apiHost) {
